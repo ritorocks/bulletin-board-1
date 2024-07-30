@@ -37,7 +37,7 @@
       <div>
         
         <input type="hidden" id="board_id_box" name="query_board_id" value="<%=@the_board.id%>">
-        
+
       </div>
       <button>
         Add post
@@ -49,6 +49,43 @@
     <h2>Active Posts</h2>
 
     <% matching_posts = Post.where({:board_id => @the_board.id}).order({:expires_on => :asc})%>
+
+    <table border="1">
+      <tr>
+        <th>
+          Title    
+        </th>
+        <th>
+          Body   
+        </th>
+        <th>
+          Posted On    
+        </th>
+        <th>
+          Expires On    
+        </th>
+      </tr>
+      <% matching_posts.each do |a_post| %>
+        <tr>
+          <td>
+            <%= a_post.title %>
+          </td>
+          <td>
+            <%= a_post.body %>
+          </td>
+          <td>
+            <%= a_post.created_at.strftime("%b %e, %Y") %>
+          </td>
+          <td>
+            <%= a_post.expires_on.strftime("%b %e, %Y") %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+  <h2>Expired Posts</h2>
+
+   <% matching_posts = Post.where({:board_id => @the_board.id}).order({:expires_on => :asc})%>
 
     <table border="1">
       <tr>
